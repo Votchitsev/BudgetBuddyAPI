@@ -1,10 +1,10 @@
 {
   "name": "budgetbuddyapi",
-  "module": "index.ts",
+  "module": "app.ts",
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "start": "bun index.ts",
+    "start": "bun app.ts",
     "lint": "eslint . --ext .ts"
   },
   "devDependencies": {
@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "sequelize": "^6.36.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   }
