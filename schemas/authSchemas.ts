@@ -19,3 +19,7 @@ export const SSighInResponse = t.Object({
     token: t.String(),
     user:  t.String(),
 })
+
+export const SLogoutRequest = t.Object({
+    authorization: t.String(),
+})

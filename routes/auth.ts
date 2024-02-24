@@ -1,7 +1,14 @@
 import { Elysia } from 'elysia'
 import type { Context } from 'elysia'
 import { authController } from '@controllers'
-import { SSignUpCredentials, SSignUpResponse, SError, SSighInCredentials, SSighInResponse } from '@Schemas'
+import {
+    SSignUpCredentials,
+    SSignUpResponse,
+    SError,
+    SSighInCredentials,
+    SSighInResponse,
+    SLogoutRequest
+} from '@Schemas'
 
 export default new Elysia({ prefix: '/auth' })
     .post('/signup', (Context: Context) => authController.signup(Context), {
@@ -28,5 +35,16 @@ export default new Elysia({ prefix: '/auth' })
             500: SError
         },
     })
-    .post('/logout', () => 'Post auth')
+    .post('/logout', (Context: Context) => authController.logout(Context) , {
+        detail: {
+            tags: ['Регистрация, авторизация пользователей'],
+            description: 'Выход пользователя из системы'
+        },
+        headers: SLogoutRequest,
+        responses: {
+            200: 'User is logged out',
+            401: SError,
+            500: SError
+        },
+    })
     .post('/delete', () => 'Post auth')

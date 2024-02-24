@@ -1,7 +1,7 @@
 import type { Context } from 'elysia'
 import axios from 'axios'
 import type { AxiosError } from 'axios'
-import type { ISignUpRequest, ISignInRequest } from '@types'
+import type { ISignUpRequest, ISignInRequest,  } from '@types'
 
 const host = process.env.AUTH_MS_HOST
 
@@ -59,6 +59,29 @@ export default {
             return error
         }
     },
-    logout: () => 'Post auth',
+    logout: async (Context: Context) => {
+        const authToken = Context.headers['authorization'] as string
+    
+        try {
+            const response = await axios.post(`${host}/user/logout/${process.env.AUTH_API_TOKEN}/${authToken}`, {
+                token: authToken
+            })
+            
+            if (response.status === 200) {
+                const { data } = response
+                return data
+            }
+        } catch (error) {
+            const errorResponse = error as AxiosError
+
+            if (errorResponse.response) {
+                const { status, data } = errorResponse.response
+                Context.set.status = status ?? 500
+                return data
+            }
+
+            return error
+        }
+    },
     delete: () => 'Post auth',
 }
