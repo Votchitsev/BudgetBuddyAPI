@@ -22,7 +22,10 @@
     "paths": {
       "@utils": ["utils"],
       "@models": ["models"],
-      "@types": ["types"]
+      "@types": ["types"],
+      "@routes": ["routes"],
+      "@controllers": ["controllers"],
+      "@Schemas": ["schemas"],
     }
   }
 }

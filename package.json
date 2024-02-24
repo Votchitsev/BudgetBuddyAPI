@@ -4,7 +4,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "start": "bun app.ts",
+    "dev": "bun --watch ./app.ts",
     "lint": "eslint . --ext .ts"
   },
   "devDependencies": {
@@ -20,10 +20,10 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "@elysiajs/swagger": "^0.8.5",
+    "axios": "^1.6.7",
+    "elysia": "^0.8.16",
     "pg": "^8.11.3",
-    "sequelize": "^6.36.0",
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "sequelize": "^6.36.0"
   }
 }

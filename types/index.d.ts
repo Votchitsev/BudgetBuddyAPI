@@ -1,3 +1,5 @@
+export * from './controllers'
+
 export type TModel = (
     ReturnType<typeof dailyExpenseDefiner> |
     ReturnType<typeof incomeDefiner> |
