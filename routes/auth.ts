@@ -7,7 +7,8 @@ import {
     SError,
     SSighInCredentials,
     SSighInResponse,
-    SLogoutRequest
+    SVerifyRequest,
+    SVerifyResponse
 } from '@Schemas'
 
 export default new Elysia({ prefix: '/auth' })
@@ -40,11 +41,35 @@ export default new Elysia({ prefix: '/auth' })
             tags: ['Регистрация, авторизация пользователей'],
             description: 'Выход пользователя из системы'
         },
-        headers: SLogoutRequest,
+        headers: SVerifyRequest,
         responses: {
             200: 'User is logged out',
             401: SError,
             500: SError
         },
     })
-    .post('/delete', () => 'Post auth')
+    .get('/verify', (Context: Context) => authController.verify(Context), {
+        detail: {
+            tags: ['Регистрация, авторизация пользователей'],
+            description: 'Подтверждение пользователя'
+        },
+        headers: SVerifyRequest,
+        responses: {
+            200: SVerifyResponse,
+            401: SError,
+            500: SError
+        } 
+    })
+    .post('/delete', (Context: Context) => authController.delete(Context), {
+        detail: {
+            tags: ['Регистрация, авторизация пользователей'],
+            description: 'Удаление пользователя'
+        },
+        headers: SVerifyRequest,
+        responses: {
+            200: 'User is deleted',
+            401: SError,
+            404: SError,
+            500: SError
+        }
+    })

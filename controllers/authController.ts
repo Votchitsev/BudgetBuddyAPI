@@ -63,9 +63,7 @@ export default {
         const authToken = Context.headers['authorization'] as string
     
         try {
-            const response = await axios.post(`${host}/user/logout/${process.env.AUTH_API_TOKEN}/${authToken}`, {
-                token: authToken
-            })
+            const response = await axios.post(`${host}/user/logout/${process.env.AUTH_API_TOKEN}/${authToken}`)
             
             if (response.status === 200) {
                 const { data } = response
@@ -83,5 +81,48 @@ export default {
             return error
         }
     },
-    delete: () => 'Post auth',
+    verify: async (Context: Context) => {
+        const authToken = Context.headers['authorization'] as string
+
+        try {
+            const response = await axios.get(`${host}/user/verify/${process.env.AUTH_API_TOKEN}/${authToken}`)
+            
+            if (response.status === 200) {
+                const { data } = response
+                return data
+            }
+        } catch (error) {
+            const errorResponse = error as AxiosError
+
+            if (errorResponse.response) {
+                const { status, data } = errorResponse.response
+                Context.set.status = status ?? 500
+                return data
+            }
+
+            return error
+        }
+    },
+    delete: async (Context: Context) => {
+        const authToken = Context.headers['authorization'] as string
+
+        try {
+            const response = await axios.delete(`${host}/user/${process.env.AUTH_API_TOKEN}/${authToken}`)
+            
+            if (response.status === 200) {
+                const { data } = response
+                return data
+            }
+        } catch (error) {
+            const errorResponse = error as AxiosError
+
+            if (errorResponse.response) {
+                const { status, data } = errorResponse.response
+                Context.set.status = status ?? 500
+                return data
+            }
+
+            return error
+        }
+    },
 }

@@ -20,6 +20,11 @@ export const SSighInResponse = t.Object({
     user:  t.String(),
 })
 
-export const SLogoutRequest = t.Object({
+export const SVerifyRequest = t.Object({
     authorization: t.String(),
+})
+
+export const SVerifyResponse = t.Object({
+    id: t.String(),
+    user:  t.String(),
 })
