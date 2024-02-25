@@ -1,6 +1,15 @@
 import { Elysia } from 'elysia'
 import type { Context } from 'elysia'
-import { SError, SPlannedBudgetRequest, SPlannedBudgetResponse, SVerifyRequest } from '@Schemas'
+import {
+    SError,
+    SPlannedBudgetDeleteRequest,
+    SPlannedBudgetListRequest,
+    SPlannedBudgetListResponse,
+    SPlannedBudgetRequest,
+    SPlannedBudgetResponse,
+    SPlannedBudgetUpdateRequest,
+    SVerifyRequest
+} from '@Schemas'
 import { authController, plannedBudgetController } from '@controllers'
 
 let userId: number
@@ -29,8 +38,49 @@ export default new Elysia({ prefix: '/plan' })
                 headers: SVerifyRequest,
                 body: SPlannedBudgetRequest,
                 responses: {
-                    201: 'Planned budget is created',
+                    201: SPlannedBudgetResponse,
                     401: SError,
+                    500: SError
+                }
+            })
+            .get(':date', (Context: Context) => plannedBudgetController.get(Context, userId), {
+                detail: {
+                    tags: ['Планируемые расходы'],
+                    description: 'Получение списка планируемых расходов'
+                },
+                headers: SVerifyRequest,
+                params: SPlannedBudgetListRequest,
+                responses: {
+                    200: SPlannedBudgetListResponse,
+                    401: SError,
+                    500: SError
+                }
+            })
+            .delete(':id', (Context: Context) => plannedBudgetController.delete(Context, userId), {
+                detail: {
+                    tags: ['Планируемые расходы'],
+                    description: 'Удаление планируемого расхода'
+                },
+                headers: SVerifyRequest,
+                params: SPlannedBudgetDeleteRequest,
+                responses: {
+                    200: 'Planned budget is deleted',
+                    401: SError,
+                    404: SError,
+                    500: SError
+                }
+            })
+            .put('', (Context: Context) => plannedBudgetController.put(Context, userId), {
+                detail: {
+                    tags: ['Планируемые расходы'],
+                    description: 'Обновление планируемого расхода'
+                },
+                headers: SVerifyRequest,
+                body: SPlannedBudgetUpdateRequest,
+                responses: {
+                    200: Boolean,
+                    401: SError,
+                    404: SError,
                     500: SError
                 }
             })

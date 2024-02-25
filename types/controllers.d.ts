@@ -16,6 +16,7 @@ export interface ILogoutRequest {
 }
 
 export interface IPlannedBudget {
+    id?: number;
     name: string;
     amount: number;
     date: Date;
