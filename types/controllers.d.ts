@@ -21,3 +21,10 @@ export interface IPlannedBudget {
     amount: number;
     date: Date;
 }
+
+export interface IIncome {
+    id?: number;
+    name: string;
+    amount: number;
+    date: Date;
+}
