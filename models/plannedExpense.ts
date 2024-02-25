@@ -26,7 +26,7 @@ export default function (sequelize: Sequelize) {
                     key: 'id',
                 }
             },
-            user_id: {
+            userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             }

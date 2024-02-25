@@ -26,6 +26,7 @@
       "@routes": ["routes"],
       "@controllers": ["controllers"],
       "@Schemas": ["schemas"],
+      "@services": ["services"],
     }
   }
 }

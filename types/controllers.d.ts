@@ -14,3 +14,9 @@ export interface ISignInRequest {
 export interface ILogoutRequest {
     token: string;
 }
+
+export interface IPlannedBudget {
+    name: string;
+    amount: number;
+    date: Date;
+}

@@ -12,12 +12,12 @@ export default function (sequelize: Sequelize) {
             amount: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-            },
+            },  
             date: {
                 type: DataTypes.DATEONLY,
                 allowNull: false,
             },
-            user_id: {
+            userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             }
