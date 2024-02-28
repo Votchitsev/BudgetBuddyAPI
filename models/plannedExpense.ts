@@ -6,16 +6,8 @@ export default function (sequelize: Sequelize) {
     return sequelize.define(
         'PlannedExpense',
         {
-            name: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
             amount: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
-            },
-            date: {
-                type: DataTypes.DATEONLY,
                 allowNull: false,
             },
             plannedBudgetId: {
