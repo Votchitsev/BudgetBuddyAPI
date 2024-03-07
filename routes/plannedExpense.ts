@@ -1,7 +1,13 @@
 import { Elysia } from 'elysia'
 import type { Context } from 'elysia'
 import { authController, plannedExpenseController } from '@controllers'
-import { SVerifyRequest, SPlannedExpenseRequest, SError } from '@Schemas'
+import {
+    SVerifyRequest,
+    SPlannedExpenseRequest,
+    SError,
+    SPlannedBudgetListRequest,
+    SPlannedBudgetListResponse
+} from '@Schemas'
 
 let userId: number
 
@@ -34,5 +40,17 @@ export default new Elysia({ prefix: 'plan-expense' })
                     500: SError
                 }
             })
-    
+            .get(':date', (Context: Context) => plannedExpenseController.get(Context, userId), {
+                detail: {
+                    tags: ['Фактический запланированный расход'],
+                    description: 'Получение списка фактических расходов'
+                },
+                headers: SVerifyRequest,
+                params: SPlannedBudgetListRequest,
+                responses: {
+                    200: SPlannedBudgetListResponse,
+                    401: SError,
+                    500: SError
+                }
+            })
     )

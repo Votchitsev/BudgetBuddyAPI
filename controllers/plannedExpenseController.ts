@@ -1,5 +1,5 @@
 import type { Context } from 'elysia'
-import { createPlannedExpense } from '@services'
+import { createPlannedExpense, getPlannedExpenseList } from '@services'
 import type { IPlannedExpense } from '@types'
 
 export default {
@@ -18,6 +18,14 @@ export default {
             Context.set.status = 500
             return error
         }
+    },
+    get: async (Context: Context, userId: number) => {
+        const { date } = Context.params as { date: string }
+        const expenseList = await getPlannedExpenseList({ date }, userId)
 
+        return {
+            date,
+            expenseList
+        }
     }
 }

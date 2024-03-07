@@ -34,3 +34,22 @@ export interface IPlannedExpense {
     amount: number;
     plannedBudgetId: number;
 }
+
+
+export interface ISelectedPlannedExpense {
+    dataValues: {
+        id: number
+        name: string
+        amount: number
+        date: Date
+        PlannedExpenses: IPlannedExpense[]
+    }
+}
+
+interface IPlannedExpenseListItem {
+    id: number
+    name: string
+    plannedAmount: number
+    expenseAmount: number
+    balance: number
+}
