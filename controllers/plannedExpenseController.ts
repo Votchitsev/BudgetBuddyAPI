@@ -1,5 +1,5 @@
 import type { Context } from 'elysia'
-import { createPlannedExpense, getPlannedExpenseList } from '@services'
+import { createPlannedExpense, getPlannedExpenseList, deletePlannedExpense } from '@services'
 import type { IPlannedExpense } from '@types'
 
 export default {
@@ -26,6 +26,25 @@ export default {
         return {
             date,
             expenseList
+        }
+    },
+    delete: async (Context: Context, userId: number) => {
+        const { id } = Context.params as { id: string }
+
+        try {
+            const result  = await deletePlannedExpense(Number(id), userId)
+
+            console.log(result)
+
+            if (!result) {
+                Context.set.status = 404
+                return 'Planned expense not found'
+            }
+
+            return 'Planned expense deleted'
+        } catch (error) {
+            Context.set.status = 500
+            return error
         }
     }
 }

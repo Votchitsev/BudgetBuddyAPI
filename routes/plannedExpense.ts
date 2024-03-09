@@ -6,7 +6,8 @@ import {
     SPlannedExpenseRequest,
     SError,
     SPlannedBudgetListRequest,
-    SPlannedBudgetListResponse
+    SPlannedBudgetListResponse,
+    SPlannedExpenseDeleteRequest
 } from '@Schemas'
 
 let userId: number
@@ -49,6 +50,19 @@ export default new Elysia({ prefix: 'plan-expense' })
                 params: SPlannedBudgetListRequest,
                 responses: {
                     200: SPlannedBudgetListResponse,
+                    401: SError,
+                    500: SError
+                }
+            })
+            .delete(':id', (Context: Context) => plannedExpenseController.delete(Context, userId), {
+                detail: {
+                    tags: ['Фактический запланированный расход'],
+                    description: 'Удаление фактического расхода'
+                },
+                headers: SVerifyRequest,
+                params: SPlannedExpenseDeleteRequest,
+                responses: {
+                    200: Boolean,
                     401: SError,
                     500: SError
                 }

@@ -52,3 +52,12 @@ export const getPlannedExpenseList = async (params: { date: string }, userId: nu
 
     return plannedExpenseList
 }
+
+export const deletePlannedExpense = async (id: number, userId: number) => {
+    return await models.PlannedExpense.destroy({
+        where: {
+            plannedBudgetId: id,
+            userId
+        }
+    })
+}

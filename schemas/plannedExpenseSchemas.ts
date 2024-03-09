@@ -27,3 +27,7 @@ export const SPlannedExpenseListResponse = t.Object({
         })
     ),
 })
+
+export const SPlannedExpenseDeleteRequest = t.Object({
+    id: t.String(),
+})
