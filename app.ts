@@ -1,8 +1,17 @@
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
 import { version } from './package.json'
-import { plannedBudgetRoutes, authRoutes, incomeRoutes, plannedExpenseRoutes } from '@routes'
+import {
+    plannedBudgetRoutes,
+    authRoutes,
+    incomeRoutes,
+    plannedExpenseRoutes,
+    dailyExpenseRoutes
+} from '@routes'
 import './utils/db'
+import { initPrototypes } from '@utils'
+
+initPrototypes()
 
 const port = Number(process.env.PORT || 3000)
 
@@ -20,6 +29,7 @@ const app = new Elysia()
     .use(incomeRoutes)
     .use(plannedBudgetRoutes)
     .use(plannedExpenseRoutes)
+    .use(dailyExpenseRoutes)
     .listen(port)
 
 console.log(

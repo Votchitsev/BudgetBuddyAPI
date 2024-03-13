@@ -53,3 +53,10 @@ interface IPlannedExpenseListItem {
     expenseAmount: number
     balance: number
 }
+
+export interface IDailyExpense {
+    id?: number;
+    amount: number;
+    date: Date;
+    userId?: number;
+}

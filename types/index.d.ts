@@ -1,4 +1,5 @@
 export * from './controllers'
+export * from './services'
 
 export type TModel = (
     ReturnType<typeof dailyExpenseDefiner> |
