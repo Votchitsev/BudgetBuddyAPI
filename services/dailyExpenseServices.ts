@@ -18,7 +18,7 @@ export const getDailyExpense = async (userId: number, date: string) => {
             date: {
                 [Op.between]: [
                     new Date(`${year}-${month}-01`),
-                    new Date(`${year}-${month}-${new Date(`${year}-${month}-01`).getDate() + 1}`)
+                    new Date(`${year}-${month}-${new Date(`${year}-${month}-01`).daysInMonth()}`)
                 ]
             }
         }
@@ -38,6 +38,13 @@ export const getDailyExpense = async (userId: number, date: string) => {
         attributes: [
             [sequelize.fn('sum', sequelize.col('amount')), 'total']
         ],
+        where: {
+            userId,
+            date
+        }
+    })
+
+    const savings = await models.SavingsPercentage.findOne({
         where: {
             userId,
             date
@@ -92,10 +99,11 @@ export const getDailyExpense = async (userId: number, date: string) => {
 
     const getTodayAllowedExpense = (expenseData: IDailyExpenseBalance[]) => {
         const today = new Date().toISOString().split('T')[0]
-        return expenseData.find((data: IDailyExpenseBalance) => data.date === today) ?? 0
+        return expenseData.find((data: IDailyExpenseBalance) => data.date === today)?.balance ?? 0
     }
 
-    const incomeBalance = income.dataValues.total - plannedBudget.dataValues.total
+    const savingsSum = savings ? savings.dataValues.percent / 100 * income.dataValues.total : 0
+    const incomeBalance = income.dataValues.total - savingsSum - plannedBudget.dataValues.total
     const expenseData = buildExpenseData(date, incomeBalance)
     const allowedExpense = getTodayAllowedExpense(expenseData)
     const outcomeBalance = expenseData[expenseData.length - 1].balance

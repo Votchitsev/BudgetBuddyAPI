@@ -6,7 +6,8 @@ import {
     authRoutes,
     incomeRoutes,
     plannedExpenseRoutes,
-    dailyExpenseRoutes
+    dailyExpenseRoutes,
+    savingsPercentageRoutes
 } from '@routes'
 import './utils/db'
 import { initPrototypes } from '@utils'
@@ -30,6 +31,7 @@ const app = new Elysia()
     .use(plannedBudgetRoutes)
     .use(plannedExpenseRoutes)
     .use(dailyExpenseRoutes)
+    .use(savingsPercentageRoutes)
     .listen(port)
 
 console.log(

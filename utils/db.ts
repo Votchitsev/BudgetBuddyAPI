@@ -1,5 +1,11 @@
 import { Sequelize } from 'sequelize'
-import { dailyExpenseDefiner, incomeDefiner, plannedBudgetDefiner, plannedExpenseDefiner } from '@models'
+import {
+    dailyExpenseDefiner,
+    incomeDefiner,
+    plannedBudgetDefiner,
+    plannedExpenseDefiner,
+    savingsPercentageDefiner
+} from '@models'
 import type { TModel } from '@types'
 
 const sequelize = new Sequelize(
@@ -18,6 +24,7 @@ const modelDefiners = [
     incomeDefiner,
     plannedBudgetDefiner,
     plannedExpenseDefiner,
+    savingsPercentageDefiner
 ]
 
 export const models: { [modelName: string]: TModel } = {}
