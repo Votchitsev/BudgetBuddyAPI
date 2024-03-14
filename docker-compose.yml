@@ -1,0 +1,32 @@
+version: "3.3"
+services:
+  db:
+    image: pastgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      EXTERNAL_DB_PORT: ${EXTERNAL_DB_PORT}
+      DB_PORT: ${DB_PORT}
+    ports:
+      - ${EXTERNAL_DB_PORT}:${DB_PORT}
+    volumes: 
+      - budgetbuddydb:/var/lib/postgresql/data
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: db
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    ports:
+      - ${EXTERNAL_APP_PORT}:${APP_PORT}
+    depends_on:
+      - db
+    command: >
+      bash -c "./run.sh"
+volumes:
+  budgetbuddydb:
