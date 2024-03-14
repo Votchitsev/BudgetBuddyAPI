@@ -14,7 +14,7 @@ import { initPrototypes } from '@utils'
 
 initPrototypes()
 
-const port = Number(process.env.PORT || 3000)
+const port = Number(process.env.APP_PORT || 3000)
 
 const app = new Elysia()
     .use(swagger({

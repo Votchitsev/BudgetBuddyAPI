@@ -1,4 +1,4 @@
 while true; do
-    bun start
+    bun run dev
     sleep 1
 done
